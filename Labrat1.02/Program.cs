@@ -62,19 +62,19 @@ Console.WriteLine();
 int sumNegCols = 0;
 for (int j = 0; j < m; j++)
 {
-    int col_sum = 0;
-    bool has_negative = false;
+    int colSum = 0;
+    bool hasNegative = false;
     for (int i = 0; i < n; i++)
     {
         if (matrix[i, j] < 0)
         {
-            has_negative = true;
+            hasNegative = true;
         }
-        col_sum += matrix[i, j];
+        colSum += matrix[i, j];
     }
-    if(has_negative)
+    if(hasNegative)
     {
-        sumNegCols += col_sum;
+        sumNegCols += colSum;
     }
 }
 
