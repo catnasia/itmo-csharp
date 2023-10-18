@@ -59,7 +59,7 @@ for (int i = 0; i < m; i++)
     Console.Write($"{getFeature(matrix, i), 2} ");
 }
 Console.WriteLine();
-int sum_neg_cols = 0;
+int sumNegCols = 0;
 for (int j = 0; j < m; j++)
 {
     int col_sum = 0;
@@ -74,8 +74,8 @@ for (int j = 0; j < m; j++)
     }
     if(has_negative)
     {
-        sum_neg_cols += col_sum;
+        sumNegCols += col_sum;
     }
 }
 
-Console.WriteLine("Сумма столбцов с отрицательными элементами: " + sum_neg_cols);
+Console.WriteLine("Сумма столбцов с отрицательными элементами: " + sumNegCols);

@@ -9,16 +9,16 @@ for (int i = 0; i < array.Length; i++)
 }
 
 int a = 0;
-int min_index = 0;
+int minIndex = 0;
 while (a < array.Length)
 {
-    if (array[a] < array[min_index])
+    if (array[a] < array[minIndex])
     {
-        min_index = a;
+        minIndex = a;
     }
     a++;
 }
-Console.WriteLine("Индекс минимального элемента = " + min_index);
+Console.WriteLine("Индекс минимального элемента = " + minIndex);
 
 int b = 0;
 while (b < array.Length)
@@ -46,20 +46,20 @@ for (int i = b + 1; i < c; i++)
 Console.WriteLine("Сумма от первого отрицательного до второго отрицательного (не включительно) = " + d);
 
 
-int less_than_one = 0;
-int more_than_one = array.Length - 1;
-while (less_than_one < more_than_one)
+int lessThanOne = 0;
+int moreThanOne = array.Length - 1;
+while (lessThanOne < moreThanOne)
 {
-    if (Math.Abs(array[less_than_one]) > 1)
+    if (Math.Abs(array[lessThanOne]) > 1)
     {
-        float t = array[less_than_one];
-        array[less_than_one] = array[more_than_one];
-        array[more_than_one] = t;
-        more_than_one--;
+        float t = array[lessThanOne];
+        array[lessThanOne] = array[moreThanOne];
+        array[moreThanOne] = t;
+        moreThanOne--;
     }
     else
     {
-        less_than_one++;
+        lessThanOne++;
     }
 }
 
