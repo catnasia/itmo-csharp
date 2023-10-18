@@ -1,8 +1,8 @@
 ﻿using labrab2;
 
-internal class Program
+internal class CompositionsProgram: IProgram
 {
-    List<Composition> compositions = new List<Composition>();
+    private readonly List<Composition> compositions = new List<Composition>();
     private void PrintHelp()
     {
         Console.WriteLine(@"
@@ -72,7 +72,7 @@ Usage:
         }
     }
 
-    private void Run()
+    public void Run()
     {
         PrintHelp();
         while(true)
@@ -104,9 +104,5 @@ Usage:
             }
             Console.WriteLine("---");
         }
-    }
-    private static void Main(string[] args)
-    {
-        (new Program()).Run();
     }
 }
