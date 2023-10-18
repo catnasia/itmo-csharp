@@ -1,6 +1,6 @@
 ﻿using labrab2;
 
-internal class CompositionsProgram: IProgram
+internal class CompositionsProgram: AbstractProgram
 {
     private readonly List<Composition> compositions = new List<Composition>();
     private void PrintHelp()
@@ -14,13 +14,6 @@ Usage:
         del - delete item by full name
         quit - exit
 ");
-    }
-
-    private string PromptUser(string prompt)
-    {
-        Console.WriteLine(prompt);
-        Console.Write("> ");
-        return Console.ReadLine()!;
     }
 
     private void RunList()
@@ -72,7 +65,7 @@ Usage:
         }
     }
 
-    public void Run()
+    public new void Run()
     {
         PrintHelp();
         while(true)
