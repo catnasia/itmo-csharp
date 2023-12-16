@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace labrab2
+namespace labrab3
 {
-    internal interface IProgram
+    public class Compositions
     {
-        public void Run();
+        public required List<Composition> Values { get; set; }
     }
 }

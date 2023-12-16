@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace labrab2
+namespace labrab3
 {
     abstract class AbstractProgram: IProgram
     {
@@ -16,6 +16,14 @@ namespace labrab2
             Console.Write("> ");
             return Console.ReadLine()!;
         }
-
+        protected int PromptChoice(string prompt, string[] choices)
+        {
+            Console.WriteLine(prompt);
+            for(int i = 0; i< choices.Length; i++)
+            {
+                Console.WriteLine(i + 1 + " " + choices[i]);
+            }
+            return int.Parse(Console.ReadLine());
+        }
     }
 }
