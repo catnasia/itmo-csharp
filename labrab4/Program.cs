@@ -17,12 +17,8 @@ namespace labrab4
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped(service =>
-            {
-                var context = new AppDbContext();
-                context.Database.EnsureCreated();
-                return context;
-            });
+            builder.Services.AddDbContext<AppDbContext>(options => 
+            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));            
 
 
             var app = builder.Build();
@@ -40,6 +36,15 @@ namespace labrab4
 
 
             app.MapControllers();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetService<AppDbContext>())
+                {
+                    context.Database.EnsureCreated();
+                    context.Database.Migrate();
+                }
+            }
 
             app.Run();
         }

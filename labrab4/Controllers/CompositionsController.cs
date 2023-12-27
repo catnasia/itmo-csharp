@@ -1,5 +1,6 @@
 ﻿using labrab4.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -9,49 +10,64 @@ namespace labrab4.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompositionsController : ControllerBase
+    public class CompositionsController : ControllerBase, IDisposable
     {
         private readonly AppDbContext context;
         public CompositionsController(AppDbContext _context)
         {
             this.context = _context;
         }
-        //list - display all items in the catalog
-        //search - find items by query
-        //add - add new item
-        //del - delete item by full name
-        //save - save items to disk
-        //load - load items from disk
-        //quit - exit
 
-        // GET: api/<CompositionsController>/List
+        public void Dispose()
+        {
+            this.context.Dispose();
+        }
+        /// <summary>
+        /// Get all compositions
+        /// GET: api/&lt;CompositionsController&gt;/List
+        /// </summary>
+        /// <returns>List of all compositions</returns>
         [HttpGet("List")]
-        public IEnumerable<Composition> Get()
+        public IAsyncEnumerable<Composition> Get()
         {
-            return context.Compositions;
+            return context.Compositions.AsAsyncEnumerable();
         }
 
-        // GET api/<CompositionsController>/Search
+        /// <summary>
+        /// Search for compositions by name or composer
+        /// GET api/&lt;CompositionsController&gt;/Search
+        /// </summary>
+        /// <param name="query">Search param</param>
+        /// <returns>Fitlered compositions</returns>
         [HttpGet("Search")]
-        public IEnumerable<Composition> Search(string query)
+        public IAsyncEnumerable<Composition> Search(string query)
         {
-            return context.Compositions.AsEnumerable().Where(x => x.SearchMatches(query));
+            return context.Compositions
+                .Where((composition) => composition.Name == query || composition.Composer == query)
+                .AsAsyncEnumerable();
         }
-
-        // POST api/<CompositionsController>/Add
+        /// <summary>
+        /// Add composition by name and composer
+        /// POST api/&lt;CompositionsController&gt;/Add
+        /// </summary>
+        /// <param name="value">Object to Add</param>
         [HttpPost("Add")]
-        public void Add([FromBody] Composition value)
+        async public void Add([FromBody] Composition value)
         {
-            context.Compositions.Add(value);
-            context.SaveChanges();
+            await context.Compositions.AddAsync(value);
+            await context.SaveChangesAsync();
         }
 
-        // PUT api/<CompositionsController>/Del
+        /// <summary>
+        /// Remove composition by name and composer
+        /// PUT api/&lt;CompositionsController&gt;/Del
+        /// </summary>
+        /// <param name="value">Composition to remove</param>
         [HttpDelete("Del")]
-        public void Delete([FromBody] Composition value)
+        async public void Delete([FromBody] Composition value)
         {
             context.Compositions.Remove(value);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -11,9 +11,10 @@ namespace labrab4
     {
         public DbSet<Models.Composition> Compositions { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            options.UseSqlite($"Data Source=db.sqlite");
         }
     }
 }
+
+
